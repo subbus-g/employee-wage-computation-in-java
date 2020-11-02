@@ -6,6 +6,8 @@ interface IEmployeeWageComputation
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
 
     public void calculateTotalWage();
+
+    public int getTotalEmpWage(String companyName);
 }
 
 class CompanyEmpWage
@@ -63,7 +65,7 @@ class EmployeeWageComputation implements IEmployeeWageComputation
     {
         CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
         companies.add(company);
-        totalEmpWages.put(companyName,0);
+        totalEmpWages.put(companyName, 0);
     }
 
     int generateEmployeeType()
@@ -114,14 +116,9 @@ class EmployeeWageComputation implements IEmployeeWageComputation
         return totalWage;
     }
 
-    void printTotalEmpWages()
+    public int getTotalEmpWage(String companyName)
     {
-        System.out.println("The Companies and their total Employee Wages are:");
-        for (String companyName : totalEmpWages.keySet())
-        {
-            System.out.println(companyName + ": " + totalEmpWages.get(companyName));
-        }
-
+        return totalEmpWages.get(companyName);
     }
 
     public static void main(String args[])
@@ -131,6 +128,8 @@ class EmployeeWageComputation implements IEmployeeWageComputation
         employeeWageComputation.addCompany("Google", 5, 40, 170);
         employeeWageComputation.addCompany("Amazon", 19, 10, 150);
         employeeWageComputation.calculateTotalWage();
-        employeeWageComputation.printTotalEmpWages();
+        String query = "Google";
+        int totalWage = employeeWageComputation.getTotalEmpWage(query);
+        System.out.println("Total Employee Wage for " + query + " company is " + totalWage);
     }
 }
