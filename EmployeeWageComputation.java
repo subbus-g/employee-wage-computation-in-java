@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 interface IEmployeeWageComputation
 {
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs);
@@ -47,19 +49,17 @@ class EmployeeWageComputation implements IEmployeeWageComputation
     public static final int PART_TIME = 1;
     public static final int FULL_TIME = 2;
     // instance variables
-    int noOfCompanies, index;
-    CompanyEmpWage[] companies;
+    ArrayList<CompanyEmpWage> companies;
 
-    public EmployeeWageComputation(int noOfCompanies)
+    public EmployeeWageComputation()
     {
-        this.noOfCompanies = noOfCompanies;
-        companies = new CompanyEmpWage[noOfCompanies];
-        index = 0;
+        companies = new ArrayList<>();
     }
 
     public void addCompany(String companyName, int wagePerHr, int maxWorkingDays, int maxWorkingHrs)
     {
-        companies[index++] = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        CompanyEmpWage company = new CompanyEmpWage(companyName, wagePerHr, maxWorkingDays, maxWorkingHrs);
+        companies.add(company);
     }
 
     int generateEmployeeType()
@@ -111,10 +111,11 @@ class EmployeeWageComputation implements IEmployeeWageComputation
 
     public static void main(String args[])
     {
-        EmployeeWageComputation employeeWageComputation = new EmployeeWageComputation(3);
+        EmployeeWageComputation employeeWageComputation = new EmployeeWageComputation();
         employeeWageComputation.addCompany("Microsoft", 4, 30, 100);
         employeeWageComputation.addCompany("Google", 5, 40, 170);
         employeeWageComputation.addCompany("Apple", 9, 10, 70);
+        employeeWageComputation.addCompany("Amazon", 19, 10, 150);
         employeeWageComputation.calculateTotalWage();
     }
 }
